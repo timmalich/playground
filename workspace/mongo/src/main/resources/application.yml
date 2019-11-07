@@ -1,0 +1,11 @@
+# docker run -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=toor -d mongo
+spring:
+  data:
+    mongodb:
+      database: test
+      host: localhost
+      port: 27017
+      password: toor
+      username: root
+      authentication-database: admin
+
