@@ -1,5 +1,6 @@
 package de.midnightghost.sudoku;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -30,10 +31,16 @@ class SudokuSolverTest {
             {2,1,7,5,3,6,4,9,8},
     };
 
+    private SudokuSolver sudokuSolver;
+
+
+    @BeforeEach
+    void setup(){
+        sudokuSolver = new SudokuSolver();
+    }
 
     @Test
     void solve() {
-        SudokuSolver sudokuSolver = new SudokuSolver();
         sudokuSolver.setSudoku(sudokuInput);
         sudokuSolver.solve();
         assertArrayEquals(sudokuSolution,  sudokuSolver.getSolution());
@@ -41,5 +48,26 @@ class SudokuSolverTest {
     @Test
     void solveStatic() {
         assertArrayEquals(sudokuSolution,  SudokuSolver.solve(sudokuInput));
+    }
+
+    @Test
+    void getArrayStyleString() {
+        assertEquals("{\n" +
+                "{0,2,4,6,0,0,0,5,0},\n" +
+                "{1,7,0,0,0,5,0,0,9},\n" +
+                "{3,0,0,9,0,0,0,0,1},\n" +
+                "{6,9,1,0,0,3,5,8,0},\n" +
+                "{0,0,8,1,0,4,9,0,0},\n" +
+                "{0,3,2,8,0,0,7,1,6},\n" +
+                "{5,0,0,0,0,8,0,0,7},\n" +
+                "{8,0,0,7,0,0,0,6,5},\n" +
+                "{0,1,0,0,0,6,4,9,0}\n" +
+                "}\n",
+                sudokuSolver.getArrayStyleString(sudokuInput)
+        );
+    }
+
+    @Test
+    void isPossible() {
     }
 }

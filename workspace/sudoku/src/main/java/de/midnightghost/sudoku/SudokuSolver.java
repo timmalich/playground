@@ -11,7 +11,7 @@ public class SudokuSolver {
         return sudokuSolver.getSolution();
     }
 
-    public void printGrid(int[][] grid){
+    public String getArrayStyleString(int[][] grid){
         StringBuilder sb = new StringBuilder("{\n");
         for(int x=0; x<9; x++){
             sb.append("{");
@@ -21,11 +21,16 @@ public class SudokuSolver {
                     sb.append(",");
                 }
             }
-            sb.append("},\n");
+            if(x<8) {
+                sb.append("},\n");
+            }else{
+                sb.append("}\n");
+            }
         }
         sb.append("}\n");
-        System.out.print(sb.toString());
+        return sb.toString();
     }
+
 
     public boolean isPossible(int x, int y, int n){
         for(int i=0; i<9; i++){
@@ -104,9 +109,9 @@ public class SudokuSolver {
                         {0, 1, 0, 0, 0, 6, 4, 9, 0} //
                 });
         System.out.println("Going to solve this: ");
-        sudokuSolver.printGrid(sudokuSolver.getSudoku());
+        System.out.println(sudokuSolver.getArrayStyleString(sudokuSolver.getSudoku()));
         System.out.println("Solution is: ");
         sudokuSolver.solve();
-        sudokuSolver.printGrid(sudokuSolver.getSolution());
+        System.out.println(sudokuSolver.getArrayStyleString(sudokuSolver.getSolution()));
     }
 }
