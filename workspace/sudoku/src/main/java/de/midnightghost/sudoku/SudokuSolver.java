@@ -1,5 +1,7 @@
 package de.midnightghost.sudoku;
 
+import java.util.Arrays;
+
 public class SudokuSolver {
     private int[][] sudoku;
     private int[][] solution;
@@ -33,11 +35,10 @@ public class SudokuSolver {
 
 
     public boolean isPossible(int x, int y, int n){
-        for(int i=0; i<9; i++){
-            if(sudoku[x][i] == n){
-                return false;
-            }
+        if(Arrays.stream(sudoku[x]).anyMatch(el -> el == n)){
+            return false;
         }
+
         for(int i=0; i<9; i++){
             if(sudoku[i][y] == n){
                 return false;
