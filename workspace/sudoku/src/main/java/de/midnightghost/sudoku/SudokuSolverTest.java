@@ -37,11 +37,11 @@ class SudokuSolverTest {
     @BeforeEach
     void setup(){
         sudokuSolver = new SudokuSolver();
+        sudokuSolver.setSudoku(sudokuInput);
     }
 
     @Test
     void solve() {
-        sudokuSolver.setSudoku(sudokuInput);
         sudokuSolver.solve();
         assertArrayEquals(sudokuSolution,  sudokuSolver.getSolution());
     }
@@ -68,6 +68,32 @@ class SudokuSolverTest {
     }
 
     @Test
-    void isPossible() {
+    void isPossibleFindsDuplicateInRow() {
+        assertFalse(sudokuSolver.isPossible(6, 2, 5));
+    }
+
+    @Test
+    void isPossibleFindsDuplicateInColumn() {
+        assertFalse(sudokuSolver.isPossible(7, 0, 8));
+    }
+
+    @Test
+    void isPossibleFindsDuplicateInSquare() {
+        assertFalse(sudokuSolver.isPossible(0, 0, 7));
+    }
+
+    @Test
+    void isPossibleFindsNoDuplicateInRow() {
+        assertTrue(sudokuSolver.isPossible(6, 2, 3));
+    }
+
+    @Test
+    void isPossibleFindsNoDuplicateInColumn() {
+        assertTrue(sudokuSolver.isPossible(7, 0, 2));
+    }
+
+    @Test
+    void isPossibleFindsNoDuplicateInSquare() {
+        assertTrue(sudokuSolver.isPossible(0, 0, 9));
     }
 }
