@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>WebSocket Playground</title>
+</head>
+<body>
+	WebSocket example. Open the console...
+	<Button id="plusButton"  onclick="plus1()"  style="height:15pt">+1</Button>
+	<Button id="minusButton" onclick="minus1()" style="height:15pt">-1</Button>
+	<div id="output"></div>
+</body>
+<script>
+var id;
+const ws = new WebSocket('ws://localhost:9898/');
+ws.onopen = function() {
+    console.log('WebSocket Client Connected');
+    ws.send('Get me a session dude!');
+};
+ws.onmessage = function(e) {
+  console.log("Received: '" + e.data + "'");
+  if(!id){
+	id=e.data.split(":")[1];
+	console.log("Getting new session: " + id);
+  }else if(e.data > 1){
+	  btn = document.getElementById("plusButton");
+	  btn.style.height = (e.data * 10) + "pt";
+  }else if(e.data < -1){
+	  btn = document.getElementById("minusButton");
+	  btn.style.height = (e.data * -10) + "pt";	  
+  }
+};
+
+var plus1 = function(){
+	ws.send("id:" + id + ":+1");
+}
+var minus1 = function(){
+	ws.send("id:" + id + ":-1");
+}
+</script>
+</html>
